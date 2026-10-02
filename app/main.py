@@ -9,11 +9,12 @@ def move_file(command: str) -> None:
         return
     if words[0] != "mv":
         return
-    if "/" not in words[2]:
-        print("Error")
 
-    src_file = words[1]
-    destination = words[2]
+    _, src_file, destination = words
+
+    if destination.endswith("/"):
+        directory = destination.rstrip("/")
+        destination = os.path.join(directory, os.path.basename(src_file))
 
     directory = os.path.dirname(destination)
 
